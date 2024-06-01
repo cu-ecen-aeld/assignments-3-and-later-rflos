@@ -95,7 +95,7 @@ sudo mknod -m 666 dev/console c 5 1
 
 # TODO: Clean and build the writer utility
 cd "${FINDER_APP_DIR}"
-rm writer
+rm -f writer
 ${CROSS_COMPILE}gcc writer.c -o writer
 
 # TODO: Copy the finder related scripts and executables to the /home directory
