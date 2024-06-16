@@ -8,7 +8,9 @@ set -u
 NUMFILES=10
 WRITESTR=AELD_IS_FUN
 WRITEDIR=/tmp/aeld-data
-username=$(cat conf/username.txt)
+DIRNAME=$(dirname $0)
+RESULT=/tmp/assignment4-result.txt
+username=$(cat $DIRNAME/conf/username.txt)
 
 if [ $# -lt 3 ]
 then
@@ -34,8 +36,7 @@ rm -rf "${WRITEDIR}"
 # create $WRITEDIR if not assignment1
 # modify for assignment3
 #assignment=`cat ../conf/assignment.txt`
-assignment=`cat conf/assignment.txt`
-
+assignment=`cat $DIRNAME/conf/assignment.txt`
 
 if [ $assignment != 'assignment1' ]
 then
@@ -58,11 +59,11 @@ fi
 
 for i in $( seq 1 $NUMFILES)
 do
-	./writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
-	#./writer.sh "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	$DIRNAME/writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	#$DIRNAME/writer.sh "$WRITEDIR/${username}$i.txt" "$WRITESTR"
 done
 
-OUTPUTSTRING=$(./finder.sh "$WRITEDIR" "$WRITESTR")
+OUTPUTSTRING=$($DIRNAME/finder.sh "$WRITEDIR" "$WRITESTR")
 
 # remove temporary directories
 rm -rf /tmp/aeld-data
@@ -70,9 +71,9 @@ rm -rf /tmp/aeld-data
 set +e
 echo ${OUTPUTSTRING} | grep "${MATCHSTR}"
 if [ $? -eq 0 ]; then
-	echo "success"
+	echo "success" > $RESULT
 	exit 0
 else
-	echo "failed: expected  ${MATCHSTR} in ${OUTPUTSTRING} but instead found"
+	echo "failed: expected  ${MATCHSTR} in ${OUTPUTSTRING} but instead found" > $RESULT
 	exit 1
 fi

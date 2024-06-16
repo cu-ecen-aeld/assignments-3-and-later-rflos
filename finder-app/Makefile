@@ -1,7 +1,9 @@
-CROSS_COMPILE :=
+all: writer
 
-all:
-	$(CROSS_COMPILE)gcc writer.c -o writer
+writer.o: writer.c
+	$(CC) $(CCFLAGS) -c main.c
 
+writer: writer.o
+	$(CC) $(LDFLAGS) writer.o -o writer
 clean:
-	rm writer
+	rm writer.o writer
