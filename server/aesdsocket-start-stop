@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ -z $1 ];then
+	echo "argument 1 is required"
+	exit -1
+fi
+
+if [ $1 = "START" ];then
+	echo "start aesdsocket deamon"
+	#usr/bin/aesdsocket -d
+	./aesdsocket -d
+fi
+
+if [ $1 = "STOP" ];then
+	tmp=$(ps | grep aesdsocket)
+	pid=$(echo $tmp | awk -F" " '{print $1}')
+	kill $pid
+	echo "stop aesdsocket deamon ($pid)"
+fi
+
