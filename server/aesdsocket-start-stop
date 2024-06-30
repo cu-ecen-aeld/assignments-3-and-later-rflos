@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ -z $1 ];then
 	echo "argument 1 is required"
@@ -7,8 +7,8 @@ fi
 
 if [ $1 = "START" ];then
 	echo "start aesdsocket deamon"
-	#usr/bin/aesdsocket -d
-	./aesdsocket -d
+	usr/bin/aesdsocket -d
+	#./aesdsocket -d
 fi
 
 if [ $1 = "STOP" ];then
